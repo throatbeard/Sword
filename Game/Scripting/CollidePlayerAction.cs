@@ -4,12 +4,12 @@ using Sword.Services;
 
 namespace Sword.Scripting
 {
-    public class CollideRacketAction : Action
+    public class CollidePlayerAction : Action
     {
         private AudioService audioService;
         private PhysicsService physicsService;
         
-        public CollideRacketAction(PhysicsService physicsService, AudioService audioService)
+        public CollidePlayerAction(PhysicsService physicsService, AudioService audioService)
         {
             this.physicsService = physicsService;
             this.audioService = audioService;
@@ -17,14 +17,14 @@ namespace Sword.Scripting
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
-            Racket racket = (Racket)cast.GetFirstActor(Constants.RACKET_GROUP);
-            Body ballBody = ball.GetBody();
-            Body racketBody = racket.GetBody();
+            Enemy enemy = (Enemy)cast.GetFirstActor(Constants.ENEMY_GROUP);
+            Player player = (Player)cast.GetFirstActor(Constants.PLAYER_GROUP);
+            Body enemyBody = enemy.GetBody();
+            Body playerBody = player.GetBody();
 
-            if (physicsService.HasCollided(racketBody, ballBody))
+            if (physicsService.HasCollided(playerBody, enemyBody))
             {
-                ball.BounceY();
+                enemy.BounceY();
                 Sound sound = new Sound(Constants.BOUNCE_SOUND);
                 audioService.PlaySound(sound);
             }

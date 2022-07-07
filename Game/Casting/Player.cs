@@ -3,7 +3,7 @@ namespace Sword.Casting
     /// <summary>
     /// A thing that participates in the game.
     /// </summary>
-    public class Racket : Actor
+    public class Player : Actor
     {
         private Body body;
         private Animation animation;
@@ -11,7 +11,7 @@ namespace Sword.Casting
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Racket(Body body, Animation animation, bool debug) : base(debug)
+        public Player(Body body, Animation animation, bool debug) : base(debug)
         {
             this.body = body;
             this.animation = animation;
@@ -36,7 +36,7 @@ namespace Sword.Casting
         }
 
         /// <summary>
-        /// Moves the racket to its next position.
+        /// Moves the player to its next position.
         /// </summary>
         public void MoveNext()
         {
@@ -47,25 +47,25 @@ namespace Sword.Casting
         }
 
         /// <summary>
-        /// Swings the racket to the left.
+        /// Swings the player to the left.
         /// </summary>
         public void SwingLeft()
         {
-            Point velocity = new Point(-Constants.RACKET_VELOCITY, 0);
+            Point velocity = new Point(-Constants.PLAYER_VELOCITY, 0);
             body.SetVelocity(velocity);
         }
 
         /// <summary>
-        /// Swings the racket to the right.
+        /// Swings the player to the right.
         /// </summary>
         public void SwingRight()
         {
-            Point velocity = new Point(Constants.RACKET_VELOCITY, 0);
+            Point velocity = new Point(Constants.PLAYER_VELOCITY, 0);
             body.SetVelocity(velocity);
         }
 
         /// <summary>
-        /// Stops the racket from moving.
+        /// Stops the player from moving.
         /// </summary>
         public void StopMoving()
         {

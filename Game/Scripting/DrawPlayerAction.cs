@@ -4,21 +4,21 @@ using Sword.Services;
 
 namespace Sword.Scripting
 {
-    public class DrawBallAction : Action
+    public class DrawPlayerAction : Action
     {
         private VideoService videoService;
         
-        public DrawBallAction(VideoService videoService)
+        public DrawPlayerAction(VideoService videoService)
         {
             this.videoService = videoService;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
-            Body body = ball.GetBody();
+            Player player = (Player)cast.GetFirstActor(Constants.PLAYER_GROUP);
+            Body body = player.GetBody();
 
-            if (ball.IsDebug())
+            if (player.IsDebug())
             {
                 Rectangle rectangle = body.GetRectangle();
                 Point size = rectangle.GetSize();
@@ -26,7 +26,8 @@ namespace Sword.Scripting
                 videoService.DrawRectangle(size, pos, Constants.PURPLE, false);
             }
 
-            Image image = ball.GetImage();
+            Animation animation = player.GetAnimation();
+            Image image = animation.NextImage();
             Point position = body.GetPosition();
             videoService.DrawImage(image, position);
         }

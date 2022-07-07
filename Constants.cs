@@ -82,7 +82,7 @@ namespace Sword
         // ----------------------------------------------------------------------------------------- 
         // CASTING CONSTANTS
         // ----------------------------------------------------------------------------------------- 
-
+        public static string BRICK_GROUP = "brick";
         // STATS
         public static string STATS_GROUP = "stats";
         // public static int DEFAULT_LIVES = 3;
@@ -93,7 +93,7 @@ namespace Sword
         public static int HUD_MARGIN = 15;
         // public static string LEVEL_GROUP = "level";
         public static string HEALTH_GROUP = "Health";
-        public static string SCORE_GROUP = "score";
+        public static string SCORE_GROUP = "Score";
         // public static string LEVEL_FORMAT = "LEVEL: {0}";
         public static string HEALTH_FORMAT = "Health: {0}";
         public static string SCORE_FORMAT = "SCORE: {0}";
@@ -101,10 +101,15 @@ namespace Sword
         // ENEMY
         public static string ENEMY_GROUP = "enemy";
         // public static string BALL_IMAGE = "Assets/Images/000.png";
+        public static string ENEMY_IMAGE = "Assets/Images/000.png";
         public static int ENEMY_WIDTH = 28;
         public static int ENEMY_HEIGHT = 28;
         public static int ENEMY_HEALTH = 40;
         public static int ENEMY_DMG = 1;
+
+        public static int ENEMY_VELOCITY;
+
+
 
         // PLAYER
         public static string PLAYER_GROUP = "player";
@@ -112,6 +117,10 @@ namespace Sword
         public static int PLAYER_HEIGHT = 30;
         public static int PLAYER_HEALTH = 1;
         public static int PLAYER_DMG = 20;
+
+        public static int PLAYER_RATE;
+
+        public static int PLAYER_VELOCITY;
         
         public static List<string> PLAYER_IMAGES
             = new List<string>() {

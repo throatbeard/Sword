@@ -18,7 +18,7 @@ namespace Sword.Scripting
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
+            Enemy enemy = (Enemy)cast.GetFirstActor(Constants.ENEMY_GROUP);
             List<Actor> bricks = cast.GetActors(Constants.BRICK_GROUP);
             Stats stats = (Stats)cast.GetFirstActor(Constants.STATS_GROUP);
             
@@ -26,11 +26,11 @@ namespace Sword.Scripting
             {
                 Brick brick = (Brick)actor;
                 Body brickBody = brick.GetBody();
-                Body ballBody = ball.GetBody();
+                Body enemyBody = enemy.GetBody();
 
-                if (physicsService.HasCollided(brickBody, ballBody))
+                if (physicsService.HasCollided(brickBody, enemyBody))
                 {
-                    ball.BounceY();
+                    enemy.BounceY();
                     Sound sound = new Sound(Constants.BOUNCE_SOUND);
                     audioService.PlaySound(sound);
                     int points = brick.GetPoints();

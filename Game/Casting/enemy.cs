@@ -7,7 +7,7 @@ namespace Sword.Casting
     /// <summary>
     /// 
     /// </summary>
-    public class Ball : Actor
+    public class Enemy : Actor
     {
         private static Random random = new Random();
 
@@ -17,14 +17,14 @@ namespace Sword.Casting
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Ball(Body body, Image image, bool debug = false) : base(debug)
+        public Enemy(Body body, Image image, bool debug = false) : base(debug)
         {
             this.body = body;
             this.image = image;
         }
 
         /// <summary>
-        /// Bounces the ball horizontally.
+        /// Bounces the enemy horizontally.
         /// </summary>
         public void BounceX()
         {
@@ -37,7 +37,7 @@ namespace Sword.Casting
         }
 
         /// <summary>
-        /// Bounces the ball vertically.
+        /// Bounces the enemy vertically.
         /// </summary>
         public void BounceY()
         {
@@ -68,15 +68,15 @@ namespace Sword.Casting
         }
 
         /// <summary>
-        /// Releases ball in random horizontal direction.
+        /// Releases enemy in random horizontal direction.
         /// </summary>
         public void Release()
         {
             Point velocity = body.GetVelocity();
-            List<int> velocities = new List<int> {Constants.BALL_VELOCITY, Constants.BALL_VELOCITY};
+            List<int> velocities = new List<int> {Constants.ENEMY_VELOCITY, Constants.ENEMY_VELOCITY};
             int index = random.Next(velocities.Count);
             double vx = velocities[index];
-            double vy = -Constants.BALL_VELOCITY;
+            double vy = -Constants.ENEMY_VELOCITY;
             Point newVelocity = new Point((int)vx, (int)vy);
             body.SetVelocity(newVelocity);
         }

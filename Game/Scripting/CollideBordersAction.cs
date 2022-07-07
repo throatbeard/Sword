@@ -17,8 +17,8 @@ namespace Sword.Scripting
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
-            Body body = ball.GetBody();
+            Enemy enemy = (Enemy)cast.GetFirstActor(Constants.ENEMY_GROUP);
+            Body body = enemy.GetBody();
             Point position = body.GetPosition();
             int x = position.GetX();
             int y = position.GetY();
@@ -27,21 +27,21 @@ namespace Sword.Scripting
 
             if (x < Constants.FIELD_LEFT)
             {
-                ball.BounceX();
+                enemy.BounceX();
                 audioService.PlaySound(bounceSound);
             }
-            else if (x >= Constants.FIELD_RIGHT - Constants.BALL_WIDTH)
+            else if (x >= Constants.FIELD_RIGHT - Constants.ENEMY_WIDTH)
             {
-                ball.BounceX();
+                enemy.BounceX();
                 audioService.PlaySound(bounceSound);
             }
 
             if (y < Constants.FIELD_TOP)
             {
-                ball.BounceY();
+                enemy.BounceY();
                 audioService.PlaySound(bounceSound);
             }
-            else if (y >= Constants.FIELD_BOTTOM - Constants.BALL_WIDTH)
+            else if (y >= Constants.FIELD_BOTTOM - Constants.ENEMY_WIDTH)
             {
                 Stats stats = (Stats)cast.GetFirstActor(Constants.STATS_GROUP);
                 stats.RemoveLife();

@@ -54,11 +54,11 @@ namespace Sword.Directing
 
         private void ExecuteActions(string group)
         {
-            List<Action> actions = script.GetActions(group);
-            foreach(Action action in actions)
+            List<Sword.Scripting.Action> actions = script.GetActions(group);
+            foreach(Sword.Scripting.Action action in actions)
             {
                 action.Execute(cast, script, this);
             }
         }
-    }
+    }   
 }

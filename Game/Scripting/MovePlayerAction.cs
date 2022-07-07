@@ -2,16 +2,16 @@ using Sword.Casting;
 
 namespace Sword.Scripting
 {
-    public class MoveRacketAction : Action
+    public class MovePlayerAction : Action
     {
-        public MoveRacketAction()
+        public MovePlayerAction()
         {
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Racket racket = (Racket)cast.GetFirstActor(Constants.RACKET_GROUP);
-            Body body = racket.GetBody();
+            Player player = (Player)cast.GetFirstActor(Constants.PLAYER_GROUP);
+            Body body = player.GetBody();
             Point position = body.GetPosition();
             Point velocity = body.GetVelocity();
             int x = position.GetX();
@@ -21,9 +21,9 @@ namespace Sword.Scripting
             {
                 position = new Point(0, position.GetY());
             }
-            else if (x > Constants.SCREEN_WIDTH - Constants.RACKET_WIDTH)
+            else if (x > Constants.SCREEN_WIDTH - Constants.PLAYER_WIDTH)
             {
-                position = new Point(Constants.SCREEN_WIDTH - Constants.RACKET_WIDTH, 
+                position = new Point(Constants.SCREEN_WIDTH - Constants.PLAYER_WIDTH, 
                     position.GetY());
             }
 

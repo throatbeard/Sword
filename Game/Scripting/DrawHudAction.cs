@@ -16,9 +16,9 @@ namespace Sword.Scripting
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
             Stats stats = (Stats)cast.GetFirstActor(Constants.STATS_GROUP);
-            DrawLabel(cast, Constants.LEVEL_GROUP, Constants.LEVEL_FORMAT, stats.GetLevel());
-            DrawLabel(cast, Constants.LIVES_GROUP, Constants.LIVES_FORMAT, stats.GetLives());
-            DrawLabel(cast, Constants.SCORE_GROUP, Constants.SCORE_FORMAT, stats.GetScore());
+            //DrawLabel(cast, Constants.SCORE_GROUP, Constants.SCORE_FORMAT, stats.GetLevel());
+            //DrawLabel(cast, Constants.HEALTH_GROUP, Constants.HEALTH_FORMAT, stats.GetLives());
+            //DrawLabel(cast, Constants.SCORE_GROUP, Constants.SCORE_FORMAT, stats.GetScore());
         }
 
         private void DrawLabel(Cast cast, string group, string format, int data)

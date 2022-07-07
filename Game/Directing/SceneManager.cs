@@ -27,9 +27,9 @@ namespace Sword.Directing
             {
                 PrepareNewGame(cast, script);
             }
-            // else if (scene == Constants.NEXT_LEVEL)
+            // else if (scene == Constants.NEXT_SCORE)
             // {
-            //     PrepareNextLevel(cast, script);
+            //     PrepareNextScore(cast, script);
             // }
             else if (scene == Constants.TRY_AGAIN)
             {
@@ -48,31 +48,31 @@ namespace Sword.Directing
         private void PrepareNewGame(Cast cast, Script script)
         {
             AddStats(cast);
-            AddLevel(cast);
-            AddScore(cast);
+            //AddScore(cast);
+            //AddScore(cast);
             AddLives(cast);
-            AddBall(cast);
-            AddBricks(cast);
-            AddRacket(cast);
+            AddEnemy(cast);
+            //AddBricks(cast);
+            AddPlayer(cast);
             AddDialog(cast, Constants.ENTER_TO_START);
 
             script.ClearAllActions();
             AddInitActions(script);
             AddLoadActions(script);
 
-            ChangeSceneAction a = new ChangeSceneAction(KeyboardService, Constants.NEXT_LEVEL);
-            script.AddAction(Constants.INPUT, a);
+            //ChangeSceneAction a = new ChangeSceneAction(KeyboardService, Constants.NEXT_SCORE);
+            //script.AddAction(Constants.INPUT, a);
 
             AddOutputActions(script);
             AddUnloadActions(script);
             AddReleaseActions(script);
         }
 
-        // private void PrepareNextLevel(Cast cast, Script script)
+        // private void PrepareNextScore(Cast cast, Script script)
         // {
-        //     AddBall(cast);
+        //     AddEnemy(cast);
         //     AddBricks(cast);
-        //     AddRacket(cast);
+        //     AddPlayer(cast);
         //     AddDialog(cast, Constants.PREP_TO_LAUNCH);
 
         //     script.ClearAllActions();
@@ -92,8 +92,8 @@ namespace Sword.Directing
         
         private void PrepareTryAgain(Cast cast, Script script)
         {
-            AddBall(cast);
-            AddRacket(cast);
+            AddEnemy(cast);
+            AddPlayer(cast);
             AddDialog(cast, Constants.PREP_TO_LAUNCH);
 
             script.ClearAllActions();
@@ -107,12 +107,12 @@ namespace Sword.Directing
 
         private void PrepareInPlay(Cast cast, Script script)
         {
-            ActivateBall(cast);
+            //ActivateEnemy(cast);
             cast.ClearActors(Constants.DIALOG_GROUP);
 
             script.ClearAllActions();
 
-            ControlRacketAction action = new ControlRacketAction(KeyboardService);
+            ControlPlayerAction action = new ControlPlayerAction(KeyboardService);
             script.AddAction(Constants.INPUT, action);
 
             AddUpdateActions(script);    
@@ -122,8 +122,8 @@ namespace Sword.Directing
 
         private void PrepareGameOver(Cast cast, Script script)
         {
-            AddBall(cast);
-            AddRacket(cast);
+            AddEnemy(cast);
+            AddPlayer(cast);
             AddDialog(cast, Constants.WAS_GOOD_GAME);
 
             script.ClearAllActions();
@@ -150,20 +150,21 @@ namespace Sword.Directing
             Point velocity = new Point(0, 0);
         
             Body body = new Body(position, size, velocity);
-            // Image image = new Image(Constants.ENEMY_IMAGE);
+            Image image = new Image(Constants.ENEMY_IMAGE);
             Enemy enemy = new Enemy(body, image, false);
         
-            cast.AddActor(Constants.Enemy_GROUP, enemy);
+        
+            cast.AddActor(Constants.ENEMY_GROUP, enemy);
         }
 
-        private void AddBricks(Cast cast)
+        /*private void AddBricks(Cast cast)
         {
             cast.ClearActors(Constants.BRICK_GROUP);
 
             Stats stats = (Stats)cast.GetFirstActor(Constants.STATS_GROUP);
-            int level = stats.GetLevel() % Constants.BASE_LEVELS;
-            string filename = string.Format(Constants.LEVEL_FILE, level);
-            List<List<string>> rows = LoadLevel(filename);
+            int level = stats.GetScore() % Constants.BASE_SCORES;
+            string filename = string.Format(Constants.SCORE_FILE, level);
+            List<List<string>> rows = LoadScore(filename);
 
             for (int r = 0; r < rows.Count; r++)
             {
@@ -188,7 +189,7 @@ namespace Sword.Directing
                     cast.AddActor(Constants.BRICK_GROUP, brick);
                 }
             }
-        }
+        }*/
 
         private void AddDialog(Cast cast, string message)
         {
@@ -202,50 +203,50 @@ namespace Sword.Directing
             cast.AddActor(Constants.DIALOG_GROUP, label);   
         }
 
-        private void AddLevel(Cast cast)
+        private void AddScore(Cast cast)
         {
-            cast.ClearActors(Constants.LEVEL_GROUP);
+            cast.ClearActors(Constants.SCORE_GROUP);
 
-            Text text = new Text(Constants.LEVEL_FORMAT, Constants.FONT_FILE, Constants.FONT_SIZE, 
+            Text text = new Text(Constants.SCORE_FORMAT, Constants.FONT_FILE, Constants.FONT_SIZE, 
                 Constants.ALIGN_LEFT, Constants.WHITE);
             Point position = new Point(Constants.HUD_MARGIN, Constants.HUD_MARGIN);
 
             Label label = new Label(text, position);
-            cast.AddActor(Constants.LEVEL_GROUP, label);
+            cast.AddActor(Constants.SCORE_GROUP, label);
         }
 
         private void AddLives(Cast cast)
         {
-            cast.ClearActors(Constants.LIVES_GROUP);
+            cast.ClearActors(Constants.HEALTH_GROUP);
 
-            Text text = new Text(Constants.LIVES_FORMAT, Constants.FONT_FILE, Constants.FONT_SIZE, 
+            Text text = new Text(Constants.HEALTH_FORMAT, Constants.FONT_FILE, Constants.FONT_SIZE, 
                 Constants.ALIGN_RIGHT, Constants.WHITE);
             Point position = new Point(Constants.SCREEN_WIDTH - Constants.HUD_MARGIN, 
                 Constants.HUD_MARGIN);
 
             Label label = new Label(text, position);
-            cast.AddActor(Constants.LIVES_GROUP, label);   
+            cast.AddActor(Constants.HEALTH_GROUP, label);   
         }
 
-        private void AddRacket(Cast cast)
+        private void AddPlayer(Cast cast)
         {
-            cast.ClearActors(Constants.RACKET_GROUP);
+            cast.ClearActors(Constants.PLAYER_GROUP);
         
-            int x = Constants.CENTER_X - Constants.RACKET_WIDTH / 2;
-            int y = Constants.SCREEN_HEIGHT - Constants.RACKET_HEIGHT;
+            int x = Constants.CENTER_X - Constants.PLAYER_WIDTH / 2;
+            int y = Constants.SCREEN_HEIGHT - Constants.PLAYER_HEIGHT;
         
             Point position = new Point(x, y);
-            Point size = new Point(Constants.RACKET_WIDTH, Constants.RACKET_HEIGHT);
+            Point size = new Point(Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
             Point velocity = new Point(0, 0);
         
             Body body = new Body(position, size, velocity);
-            Animation animation = new Animation(Constants.RACKET_IMAGES, Constants.RACKET_RATE, 0);
-            Racket racket = new Racket(body, animation, false);
+            Animation animation = new Animation(Constants.PLAYER_IMAGES, Constants.PLAYER_RATE, 0);
+            Player player = new Player(body, animation, false);
         
-            cast.AddActor(Constants.RACKET_GROUP, racket);
+            cast.AddActor(Constants.PLAYER_GROUP, player);
         }
 
-        private void AddScore(Cast cast)
+        /*private void AddScore(Cast cast)
         {
             cast.ClearActors(Constants.SCORE_GROUP);
 
@@ -255,7 +256,7 @@ namespace Sword.Directing
             
             Label label = new Label(text, position);
             cast.AddActor(Constants.SCORE_GROUP, label);   
-        }
+        }*/
 
         private void AddStats(Cast cast)
         {
@@ -264,7 +265,7 @@ namespace Sword.Directing
             cast.AddActor(Constants.STATS_GROUP, stats);
         }
 
-        private List<List<string>> LoadLevel(string filename)
+        private List<List<string>> LoadScore(string filename)
         {
             List<List<string>> data = new List<List<string>>();
             using(StreamReader reader = new StreamReader(filename))
@@ -298,9 +299,9 @@ namespace Sword.Directing
         {
             script.AddAction(Constants.OUTPUT, new StartDrawingAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService));
-            script.AddAction(Constants.OUTPUT, new DrawBallAction(VideoService));
-            script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
-            script.AddAction(Constants.OUTPUT, new DrawRacketAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawEnemyAction(VideoService));
+            //script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawPlayerAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
             script.AddAction(Constants.OUTPUT, new EndDrawingAction(VideoService));
         }
@@ -318,11 +319,11 @@ namespace Sword.Directing
 
         private void AddUpdateActions(Script script)
         {
-            script.AddAction(Constants.UPDATE, new MoveBallAction());
-            script.AddAction(Constants.UPDATE, new MoveRacketAction());
+            script.AddAction(Constants.UPDATE, new MoveEnemyAction());
+            script.AddAction(Constants.UPDATE, new MovePlayerAction());
             script.AddAction(Constants.UPDATE, new CollideBordersAction(PhysicsService, AudioService));
-            script.AddAction(Constants.UPDATE, new CollideBrickAction(PhysicsService, AudioService));
-            script.AddAction(Constants.UPDATE, new CollideRacketAction(PhysicsService, AudioService));
+            //script.AddAction(Constants.UPDATE, new CollideBrickAction(PhysicsService, AudioService));
+            script.AddAction(Constants.UPDATE, new CollidePlayerAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CheckOverAction());     
         }
     }
