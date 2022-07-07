@@ -27,10 +27,10 @@ namespace Sword.Directing
             {
                 PrepareNewGame(cast, script);
             }
-            else if (scene == Constants.NEXT_LEVEL)
-            {
-                PrepareNextLevel(cast, script);
-            }
+            // else if (scene == Constants.NEXT_LEVEL)
+            // {
+            //     PrepareNextLevel(cast, script);
+            // }
             else if (scene == Constants.TRY_AGAIN)
             {
                 PrepareTryAgain(cast, script);
@@ -68,30 +68,28 @@ namespace Sword.Directing
             AddReleaseActions(script);
         }
 
-        private void ActivateBall(Cast cast)
+        // private void PrepareNextLevel(Cast cast, Script script)
+        // {
+        //     AddBall(cast);
+        //     AddBricks(cast);
+        //     AddRacket(cast);
+        //     AddDialog(cast, Constants.PREP_TO_LAUNCH);
+
+        //     script.ClearAllActions();
+
+        //     TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.IN_PLAY, 2, DateTime.Now);
+        //     script.AddAction(Constants.INPUT, ta);
+
+        //     AddOutputActions(script);
+
+        //     PlaySoundAction sa = new PlaySoundAction(AudioService, Constants.WELCOME_SOUND);
+        //     script.AddAction(Constants.OUTPUT, sa);
+        // }
+        private void PlaceEnemies(Cast cast, Script script)
         {
-            Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
-            ball.Release();
+
         }
-
-        private void PrepareNextLevel(Cast cast, Script script)
-        {
-            AddBall(cast);
-            AddBricks(cast);
-            AddRacket(cast);
-            AddDialog(cast, Constants.PREP_TO_LAUNCH);
-
-            script.ClearAllActions();
-
-            TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.IN_PLAY, 2, DateTime.Now);
-            script.AddAction(Constants.INPUT, ta);
-
-            AddOutputActions(script);
-
-            PlaySoundAction sa = new PlaySoundAction(AudioService, Constants.WELCOME_SOUND);
-            script.AddAction(Constants.OUTPUT, sa);
-        }
-
+        
         private void PrepareTryAgain(Cast cast, Script script)
         {
             AddBall(cast);
@@ -140,22 +138,22 @@ namespace Sword.Directing
         // casting methods
         // -----------------------------------------------------------------------------------------
 
-        private void AddBall(Cast cast)
+        private void AddEnemy(Cast cast)
         {
-            cast.ClearActors(Constants.BALL_GROUP);
+            cast.ClearActors(Constants.ENEMY_GROUP);
         
-            int x = Constants.CENTER_X - Constants.BALL_WIDTH / 2;
-            int y = Constants.SCREEN_HEIGHT - Constants.RACKET_HEIGHT - Constants.BALL_HEIGHT;
+            int x = Constants.CENTER_X - Constants.ENEMY_WIDTH / 2;
+            int y = Constants.SCREEN_HEIGHT - Constants.ENEMY_HEIGHT;
         
             Point position = new Point(x, y);
-            Point size = new Point(Constants.BALL_WIDTH, Constants.BALL_HEIGHT);
+            Point size = new Point(Constants.ENEMY_WIDTH, Constants.ENEMY_HEIGHT);
             Point velocity = new Point(0, 0);
         
             Body body = new Body(position, size, velocity);
-            Image image = new Image(Constants.BALL_IMAGE);
-            Ball ball = new Ball(body, image, false);
+            // Image image = new Image(Constants.ENEMY_IMAGE);
+            Enemy enemy = new Enemy(body, image, false);
         
-            cast.AddActor(Constants.BALL_GROUP, ball);
+            cast.AddActor(Constants.Enemy_GROUP, enemy);
         }
 
         private void AddBricks(Cast cast)
