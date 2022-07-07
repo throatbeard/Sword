@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Unit06.Game.Casting;
-using Unit06.Game.Scripting;
-using Unit06.Game.Services;
+using Sword.Casting;
+using Sword.Scripting;
+using Sword.Services;
 
 
-namespace Unit06.Game.Directing
+namespace Sword.Directing
 {
     public class SceneManager
     {

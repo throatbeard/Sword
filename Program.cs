@@ -1,8 +1,8 @@
 ﻿using System;
-using Unit06.Game.Directing;
-using Unit06.Game.Services;
+using Sword.Directing;
+using Sword.Services;
 
-namespace Unit06
+namespace Sword
 {
     public class Program
     {

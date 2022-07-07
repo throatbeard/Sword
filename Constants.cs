@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Unit06.Game.Casting;
+using Sword.Casting;
 
 
-namespace Unit06
+namespace Sword
 {
     public class Constants
     {

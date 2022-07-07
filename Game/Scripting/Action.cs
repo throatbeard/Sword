@@ -1,7 +1,7 @@
-using Unit06.Game.Casting;
+using Sword.Casting;
 
 
-namespace Unit06.Game.Scripting 
+namespace Sword.Scripting 
 {
     /// <summary>
     /// A thing that is done in the game.

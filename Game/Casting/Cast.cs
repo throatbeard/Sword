@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace Unit06.Game.Casting
+namespace Sword.Casting
 {
     /// <summary>
     /// A collection of actors.

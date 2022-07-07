@@ -1,7 +1,7 @@
-using Unit06.Game.Casting;
+using Sword.Casting;
 
 
-namespace Unit06.Game.Services
+namespace Sword.Services
 {
     public interface MouseService
     {

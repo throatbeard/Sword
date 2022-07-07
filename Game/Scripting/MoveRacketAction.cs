@@ -1,6 +1,6 @@
-using Unit06.Game.Casting;
+using Sword.Casting;
 
-namespace Unit06.Game.Scripting
+namespace Sword.Scripting
 {
     public class MoveRacketAction : Action
     {
